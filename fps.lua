@@ -87,7 +87,7 @@ mainContainer.Parent = frame
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 0, 30)
 title.BackgroundTransparency = 1
-title.Text = "BSS Ultra Optimizer"
+title.Text = "FPS Locker + booster"
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Font = Enum.Font.GothamBold
 title.TextSize = 20
@@ -133,7 +133,7 @@ local customInput = Instance.new("TextBox")
 customInput.Size = UDim2.new(0.95, 0, 0, 32)
 customInput.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 customInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-customInput.PlaceholderText = "Свой FPS (напр. 20)"
+customInput.PlaceholderText = "Your FPS (for ex. 20)"
 customInput.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
 customInput.Font = Enum.Font.Gotham
 customInput.TextSize = 13
@@ -166,11 +166,11 @@ local function makeFpsButton(text, fpsValue)
 	end)
 end
 
-local fpsLimits = {5, 10, 15, 30, 45, 60, 90, 120, 144, 165, 240}
+local fpsLimits = {1, 5, 10, 15, 30, 45, 60, 90, 120, 144, 165, 180, 200, 220, 240}
 for _, v in ipairs(fpsLimits) do
     makeFpsButton(v .. " FPS", v)
 end
-makeFpsButton("Сброс", 0)
+makeFpsButton("Reset", 0)
 
 customInput.FocusLost:Connect(function(enterPressed)
     local text = customInput.Text
@@ -239,7 +239,7 @@ local function makeToggle(text, callback)
     toggleBtn.TextColor3 = Color3.fromRGB(255, 150, 150)
     toggleBtn.Font = Enum.Font.GothamBold
     toggleBtn.TextSize = 11
-    toggleBtn.Text = text .. ": ВЫКЛ"
+    toggleBtn.Text = text .. ": Off"
     toggleBtn.ZIndex = 7
     toggleBtn.Parent = rightScroll
 
@@ -253,11 +253,11 @@ local function makeToggle(text, callback)
         if state then
             toggleBtn.BackgroundColor3 = Color3.fromRGB(30, 45, 30)
             toggleBtn.TextColor3 = Color3.fromRGB(150, 255, 150)
-            toggleBtn.Text = text .. ": ВКЛ"
+            toggleBtn.Text = text .. ": On"
         else
             toggleBtn.BackgroundColor3 = Color3.fromRGB(45, 30, 30)
             toggleBtn.TextColor3 = Color3.fromRGB(255, 150, 150)
-            toggleBtn.Text = text .. ": ВЫКЛ"
+            toggleBtn.Text = text .. ": Off"
         end
         callback(state)
     end)
