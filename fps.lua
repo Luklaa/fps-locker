@@ -118,7 +118,7 @@ rightContainer.Parent = mainContainer
 local rightScroll = Instance.new("ScrollingFrame")
 rightScroll.Size = UDim2.new(1, 0, 1, 0)
 rightScroll.BackgroundTransparency = 1
-rightScroll.CanvasSize = UDim2.new(0, 0, 0, 380)
+rightScroll.CanvasSize = UDim2.new(0, 0, 0, 420)
 rightScroll.ScrollBarThickness = 4
 rightScroll.ScrollBarImageColor3 = Color3.fromRGB(80, 80, 80)
 rightScroll.ZIndex = 6
@@ -147,23 +147,23 @@ inputCorner.CornerRadius = UDim.new(0, 6)
 inputCorner.Parent = customInput
 
 local function makeFpsButton(text, fpsValue)
-	local btn = Instance.new("TextButton")
-	btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-	btn.Font = Enum.Font.Gotham
-	btn.TextSize = 12
-	btn.Text = text
-	btn.ZIndex = 7
-	btn.Parent = leftContainer
+    local btn = Instance.new("TextButton")
+    btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.Font = Enum.Font.Gotham
+    btn.TextSize = 12
+    btn.Text = text
+    btn.ZIndex = 7
+    btn.Parent = leftContainer
 
-	local btnCorner = Instance.new("UICorner")
-	btnCorner.CornerRadius = UDim.new(0, 6)
-	btnCorner.Parent = btn
+    local btnCorner = Instance.new("UICorner")
+    btnCorner.CornerRadius = UDim.new(0, 6)
+    btnCorner.Parent = btn
 
-	btn.MouseButton1Click:Connect(function()
-		setFps(fpsValue)
-		title.Text = fpsValue == 0 and "FPS: Default (60)" or ("FPS Limit: " .. fpsValue)
-	end)
+    btn.MouseButton1Click:Connect(function()
+        setFps(fpsValue)
+        title.Text = fpsValue == 0 and "FPS: Default (60)" or ("FPS Limit: " .. fpsValue)
+    end)
 end
 
 local fpsLimits = {1, 5, 10, 15, 30, 45, 60, 90, 120, 144, 165, 180, 200, 220, 240}
@@ -190,6 +190,7 @@ customInput.FocusLost:Connect(function(enterPressed)
     end
 end)
 
+-- Счетчик FPS с возможностью перетаскивания
 local fpsDisplayLabel = Instance.new("TextLabel")
 fpsDisplayLabel.Size = UDim2.new(0, 85, 0, 25)
 fpsDisplayLabel.Position = UDim2.new(0, 15, 0, 40)
@@ -200,6 +201,8 @@ fpsDisplayLabel.Font = Enum.Font.GothamBold
 fpsDisplayLabel.TextSize = 13
 fpsDisplayLabel.Text = "FPS: --"
 fpsDisplayLabel.Visible = false
+fpsDisplayLabel.Active = true
+fpsDisplayLabel.Draggable = true
 fpsDisplayLabel.ZIndex = 10
 fpsDisplayLabel.Parent = screenGui
 
@@ -266,6 +269,10 @@ end
 makeToggle("Show FPS counter", function(state)
     fpsShowActive = state
     fpsDisplayLabel.Visible = state
+end)
+
+makeToggle("Lock FPS counter pos", function(state)
+    fpsDisplayLabel.Draggable = not state
 end)
 
 makeToggle("Set Max FPS (999)", function(state)
